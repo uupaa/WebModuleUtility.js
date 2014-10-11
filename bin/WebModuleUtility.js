@@ -38,8 +38,10 @@ if (options.help) {
 
 if (options.verbose) {
 }
+
 if (options.patched) {
-    WebModuleUtility.patched("./", function(err) {
+    WebModuleUtility.patched(process.cwd() + "/" + "package.json", function(err) {
+    });
 }
 
 if (options.validate) {

@@ -1,6 +1,6 @@
 {
   "name":           "uupaa.webmoduleutility.js",
-  "version":        "0.0.1",
+  "version":        "0.0.3",
   "description":    "WebModule Utility functions.",
   "url":            "https://github.com/uupaa/WebModuleUtility.js",
   "keywords":       ["WebModule", "utility", "uupaa", "Unstable"],
