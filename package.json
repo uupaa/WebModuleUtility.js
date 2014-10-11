@@ -1,14 +1,15 @@
 {
   "name":           "uupaa.webmoduleutility.js",
   "version":        "0.0.1",
-  "description":    "Module template for Mobile Web Application.",
+  "description":    "WebModule Utility functions.",
   "url":            "https://github.com/uupaa/WebModuleUtility.js",
-  "keywords":       ["WebModule", "Unstable"],
+  "keywords":       ["WebModule", "utility", "uupaa", "Unstable"],
   "repository": {
     "type":         "git",
     "url":          "https://github.com/uupaa/WebModuleUtility.js.git"
   },
   "scripts": {
+    "init":         "npm update; npm run build; npm run test-page",
     "watch":        "node node_modules/uupaa.watch.js --verbose --action build",
     "build":        "node node_modules/uupaa.minify.js --verbose --strict --keep --pretty",
     "build-simple": "node node_modules/uupaa.minify.js --verbose --strict --keep --pretty --nowrap --simple",
@@ -19,16 +20,16 @@
     "test-node":    "NODE_ENV=production NODE_PATH=lib node --harmony test/index.node.js",
     "test-browser": "open test/index.html",
     "test-sim":     "node node_modules/uupaa.iphonesimulator.js --run --port 8585 --xcache --open test/index.html",
-    "test-setting": "node node_modules/uupaa.webmoduleutility.js --verbose",
     "server":       "http-server -c-1 -p 8585 &",
     "server-stop":  "",
     "server-kill":  "killall -- node /usr/local/bin/http-server -p 8585 ; exit 0",
+    "hint":         "jshint lib/*.js",
     "lint":         "node node_modules/uupaa.plato.js; open lint/plato/index.html"
   },
   "x-build": {
     "source":       ["lib/WebModuleUtility.js"],
     "output":       "release/WebModuleUtility.min.js",
-    "target":       ["all"],
+    "target":       ["node"],
     "label":        ["@dev"],
     "module": {
       "develop":    ["uupaa.valid.js"],

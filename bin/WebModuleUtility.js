@@ -7,6 +7,7 @@ var USAGE = _multiline(function() {/*
         node bin/WebModuleUtility.js [--help]
                                      [--verbose]
                                      [--validate]
+                                     [--patched]
 
     See:
         https://github.com/uupaa/WebModuleUtility.js/wiki/WebModuleUtility.js
@@ -26,6 +27,7 @@ var argv    = process.argv.slice(2);
 var options = _parseCommandLineOptions({
         help:       false,      // Boolean: show help.
         verbose:    false,      // Boolean: verbose mode.
+        patched:    false,      // Boolean: patched version.
         validate:   false       // Boolean: validate
     });
 
@@ -35,6 +37,9 @@ if (options.help) {
 }
 
 if (options.verbose) {
+}
+if (options.patched) {
+    WebModuleUtility.patched("./", function(err) {
 }
 
 if (options.validate) {
@@ -51,6 +56,7 @@ function _parseCommandLineOptions(options) { // @arg Object:
         case "-v":
         case "--verbose":   options.verbose = true; break;
         case "--validate":  options.validate = true; break;
+        case "--patched":   options.patched = true; break;
         }
     }
     return options;

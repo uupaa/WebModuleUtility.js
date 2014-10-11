@@ -6,50 +6,20 @@ var _runOnBrowser = "document" in global;
 
 return new Test("WebModuleUtility", {
         disable:    false,
-        browser:    true,
-        worker:     true,
+        browser:    false,
+        worker:     false,
         node:       true,
         button:     true,
-        both:       true, // test the primary module and secondary module
+        both:       false, // test the primary module and secondary module
     }).add([
-        testWebModuleUtility_value,
-        testWebModuleUtility_isNumber,
-        testWebModuleUtility_isInteger,
+        testWebModuleUtility_patched,
     ]).run().clone();
 
-function testWebModuleUtility_value(test, pass, miss) {
+function testWebModuleUtility_patched(test, pass, miss) {
 
-    var result = new WebModuleUtility(123.4).value();
+    WebModuleUtility.patched();
 
-    if (result === 123.4) {
-        test.done(pass());
-    } else {
-        test.done(miss());
-    }
-}
-
-function testWebModuleUtility_isNumber(test, pass, miss) {
-
-    var result = [
-            new WebModuleUtility(123.4).isNumber(),  // true
-            new WebModuleUtility(123.0).isNumber()   // true
-        ];
-
-    if (!/false/.test(result.join())) {
-        test.done(pass());
-    } else {
-        test.done(miss());
-    }
-}
-
-function testWebModuleUtility_isInteger(test, pass, miss) {
-
-    var result = [
-           !new WebModuleUtility(123.4).isInteger(), // !false -> true
-            new WebModuleUtility(123.0).isInteger()  // true
-        ];
-
-    if (!/false/.test(result.join())) {
+    if (1) {
         test.done(pass());
     } else {
         test.done(miss());
