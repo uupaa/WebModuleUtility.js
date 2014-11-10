@@ -14,6 +14,9 @@ var USAGE = _multiline(function() {/*
                                      [--bootserver] [--port]
                                      [--killserver]
 
+    Example:
+        node bin/WebModuleUtility.js --verbose --openurl http://localhost:1173/test
+
     See:
         https://github.com/uupaa/WebModuleUtility.js/wiki/WebModuleUtility.js
 */});
@@ -27,6 +30,7 @@ var CONSOLE_COLOR = {
     };
 
 var WebModuleUtility = require("../lib/WebModuleUtility");
+var Task    = require("uupaa.task.js");
 var fs      = require("fs");
 var argv    = process.argv.slice(2);
 var options = _parseCommandLineOptions({
@@ -56,30 +60,32 @@ if (options.patched) {
     util.patched(process.cwd() + "/" + "package.json", function(err) {
     });
 }
-
-if (options.killserver) {
-    util.killserver(process.cwd());
-}
-
-if (options.bootserver) {
-    util.bootserver(process.cwd(), options.port);
-}
-
-if (options.killsim) {
-    util.killsim();
-}
-
-if (options.bootsim) {
-    util.bootsim();
-}
-
-
-if (options.openurl) {
-    util.openurl(options.openurl);
-}
-
 if (options.validate) {
     util.validate("./", function(err) {
+    });
+}
+
+var task = [];
+
+if (options.killsim)    { task.push("killsim"); }
+if (options.killserver) { task.push("killserver"); }
+if (options.bootserver) { task.push("killserver", "bootserver"); }
+if (options.bootsim)    { task.push("killsim", "bootsim"); }
+if (options.openurl)    {
+    if (task.indexOf("bootsim") <  0) { task.push("killserver", "bootserver", "bootsim"); }
+    if (task.indexOf("bootsim") >= 0) { task.push("4000"); } // delay 4s
+    task.push("openurl");
+}
+
+if (task.length) {
+    Task.run(task.join(">"), {
+        killsim:    function(task) { util.killsim(task.passfn(), task.missfn()); },
+        killserver: function(task) { util.killserver(process.cwd(), task.passfn(), task.missfn()); },
+        bootserver: function(task) { util.bootserver(process.cwd(), options.port, task.passfn(), task.missfn()); },
+        bootsim:    function(task) { util.bootsim(task.passfn(), task.missfn()); },
+        openurl:    function(task) { util.openurl(options.openurl, task.passfn(), task.missfn()); }
+    }, function() {
+        // finished.
     });
 }
 
