@@ -34,7 +34,7 @@ var options = _parseCommandLineOptions({
         verbose:    false,      // Boolean - verbose mode.
         patched:    false,      // Boolean - patched version.
         bootsim:    false,      // Boolean - boot iOS simulator.
-        openurl:    false,      // URLString - open the url in the iOS simulator.
+        openurl:    "",         // URLString - open the url in the iOS simulator.
         killsim:    false,      // Boolean - kill iOS simulator.
         bootserver: false,      // Boolean - boot http server.
         port:       1173,       // Number  - port number. The 1173 is NICE WAVE in japanese.
@@ -65,16 +65,17 @@ if (options.bootserver) {
     util.bootserver(process.cwd(), options.port);
 }
 
+if (options.killsim) {
+    util.killsim();
+}
+
 if (options.bootsim) {
     util.bootsim();
 }
 
-if (options.killsim) {
-    uril.killsim();
-}
 
 if (options.openurl) {
-    uril.openurl();
+    util.openurl(options.openurl);
 }
 
 if (options.validate) {
@@ -93,7 +94,7 @@ function _parseCommandLineOptions(options) { // @arg Object:
         case "--validate":  options.validate = true; break;
         case "--patched":   options.patched = true; break;
         case "--bootsim":   options.bootsim = true; break;
-        case "--openurl":   options.openurl = argv[i++]; break;
+        case "--openurl":   options.openurl = argv[++i]; break;
         case "--killsim":   options.killsim = true; break;
         case "--bootserver":options.bootserver = true; break;
         case "--port":      options.port = argv[i++]; break;
