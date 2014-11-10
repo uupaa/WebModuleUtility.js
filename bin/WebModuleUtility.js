@@ -13,6 +13,7 @@ var USAGE = _multiline(function() {/*
                                      [--killsim]
                                      [--bootserver] [--port]
                                      [--killserver]
+                                     [--test-sim]
 
     Example:
         node bin/WebModuleUtility.js --verbose --openurl http://localhost:1173/test
@@ -43,6 +44,7 @@ var options = _parseCommandLineOptions({
         bootserver: false,      // Boolean - boot http server.
         port:       1173,       // Number  - port number. The 1173 is NICE WAVE in japanese.
         killserver: false,      // Boolean - kill http server.
+        test_sim:   false,      // Boolean - test http://0.0.0.0:1173/test/index.html
         validate:   false       // Boolean - validate
     });
 
@@ -105,7 +107,11 @@ function _parseCommandLineOptions(options) { // @arg Object:
         case "--bootserver":options.bootserver = true; break;
         case "--port":      options.port = argv[i++]; break;
         case "--killserver":options.killserver = true; break;
+        case "--test-sim":  options.test_sim = true; break;
         }
+    }
+    if (options.test_sim) {
+        options.openurl = "http://0.0.0.0:" + options.port + "/test/index.html";
     }
     return options;
 }
