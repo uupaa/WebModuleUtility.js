@@ -1,6 +1,6 @@
 {
   "name":           "uupaa.webmoduleutility.js",
-  "version":        "0.0.7",
+  "version":        "0.0.8",
   "description":    "WebModule Utility functions.",
   "url":            "https://github.com/uupaa/WebModuleUtility.js",
   "keywords":       ["WebModule", "utility", "uupaa", "Unstable"],
@@ -28,8 +28,8 @@
     "target":       ["node"],
     "label":        ["@dev"],
     "module": {
-      "develop":    ["uupaa.valid.js"],
-      "release":    ["uupaa.task.js"]
+      "develop":    [],
+      "release":    []
     }
   },
   "dependencies": {
@@ -37,7 +37,6 @@
   "devDependencies": {
     "uupaa.nodemodule.js": "",
     "uupaa.reflection.js": "",
-    "uupaa.iphonesimulator.js": "",
     "uupaa.console.js": "",
     "uupaa.valid.js":   "",
     "uupaa.help.js":    "",
